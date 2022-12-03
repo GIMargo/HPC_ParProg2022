@@ -188,11 +188,11 @@ int main(int argc, char *argv[])
 					packs[i].N = N;
 					packs[i].buff = NULL;
 					packs[i].start = a;
+					packs[i].h = k;
 					if (pthread_create(&tid[i], NULL, flowFunc, packs + i)) { // создаем новый поток
 						printf("\n Thread creation error! Thread number %d\n", i);
 						goto exit;
 					}
-					packs[i].h = k;
 					a+=2;// раздаём потокам стартовые нечётные числа
 				}
 
