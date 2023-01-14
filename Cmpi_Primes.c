@@ -5,10 +5,9 @@
 #include <sys/time.h>
 
 //#define testing_mode
-//#define experiment_mode
 //#define interactive_mode
 
-unsigned int * primes; // массив простых чисел (в нём будет результат)
+unsigned int * primes; // array of prime numbers (here will be the result)
 
 int test(int curr, const char * filename) {
 	FILE *f;
@@ -55,7 +54,7 @@ void saveArrayToFile(int N, unsigned int * arr, int size, const char * filename)
 
 int findD(int number_of_processes) {
 	int d = 1;
-	while (d * 2 < number_of_processes - 1) {
+	while (d * 2 < number_of_processes) {
 		d *= 2;
 	}
 	return d;
@@ -64,13 +63,8 @@ int findD(int number_of_processes) {
 int main(int argc, char *argv[])
 {
 	MPI_Init(&argc, &argv); // MPI initialization
-#ifdef testing_mode
 	const int Ns_size = 8;
 	unsigned int Ns[] = { 2, 105, 239, 543, 1000, 5468, 7777, 10000 };
-#else
-	const int Ns_size = 5;
-	unsigned int Ns[] = { 100000, 1000000, 10000000, 100000000, 1000000000 };
-#endif
 
 #ifndef interactive_mode
 	int test_num = 1;
@@ -239,7 +233,7 @@ int main(int argc, char *argv[])
 			//printf("\n Resulting primes in P: \n");
 			//printArray(primes, curr);
 #ifdef interactive_mode
-			//saveArrayToFile(N, primes, curr, "result.txt");
+			saveArrayToFile(N, primes, curr, "result.txt");
 #endif
 #ifdef testing_mode
 			if (test(curr, "etalon.txt")) {
